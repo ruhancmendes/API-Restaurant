@@ -36,6 +36,19 @@ class TablesSessionsController {
             next(error)
         }
     }
+
+    async index(request: Request, response: Response, next: NextFunction) {
+        try {
+            // Lógica para listar todas as sessões das mesas
+            const sessions = await knex<TablesSessionsRepository>("tables_sessions")
+            .orderBy("closed_at")
+
+            return response.status(200).json(sessions)
+
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 export { TablesSessionsController }
