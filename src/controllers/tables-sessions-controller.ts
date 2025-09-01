@@ -49,6 +49,20 @@ class TablesSessionsController {
             next(error)
         }
     }
+
+    async update(request: Request, response: Response, next: NextFunction) {
+        try {
+            // Lógica para atualizar uma sessão específica
+            const id = z.string()
+            .transform((value) => Number(value))
+            .refine((value) => !isNaN(value), { message: "ID must be a valid number" })
+            .parse(request.params.id)
+
+            return response.json()
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 export { TablesSessionsController }
